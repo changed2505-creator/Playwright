@@ -40,20 +40,64 @@ test("Login to a site", async ({ page }) => {
   console.log(await productName.allTextContents());
 });
 
-test.only("Login to another site", async ({ page }) => {
-  const emailLogin = page.locator("#userEmail");
-  const password = page.locator("#userPassword");
-  const login = page.locator("#login");
-  const itemName = page.locator(".card-body h5 b");
+test("Static dropdown select", async ({ page }) => {
+  const userName = page.locator("#username");
+  const password = page.locator("[type = 'password']");
+  const signInBtn = page.locator("#signInBtn");
+  const dropdown = page.locator("select.form-control ");
+  const radio = page.locator(".customradio [value='user']");
+  const ok = page.locator("#okayBtn");
+  const TandC = page.locator("#terms");
+  const blinkText = page.locator("[href*='documents-request']");
 
-  await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
+  await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+  await expect(blinkText).toHaveAttribute("class", "blinkingText");
+  await userName.fill("rahulshettyacademy");
+  await password.fill("Learning@830$3mK2");
+  await radio.click();
+  await ok.click();
+  await expect(radio).toBeChecked();
+  await dropdown.selectOption("consult");
+  expect(await TandC.isChecked()).toBeFalsy();
+  await TandC.click();
+  await expect(TandC).toBeChecked();
+  await signInBtn.click();
+});
 
-  await emailLogin.fill("Never555@gmail.com");
-  await password.fill("Never@555");
-  await login.click();
+test.only("Navigating to child window", async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
-  // await page.waitForLoadState("networkidle");
-  await itemName.first().waitFor();
-  console.log(await itemName.allTextContents());
-  console.log(await itemName.nth(0).textContent());
+  const userName = page.locator("#username");
+  const password = page.locator("[type = 'password']");
+  const signInBtn = page.locator("#signInBtn");
+  const dropdown = page.locator("select.form-control ");
+  const radio = page.locator(".customradio [value='user']");
+  const ok = page.locator("#okayBtn");
+  const TandC = page.locator("#terms");
+
+  await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+
+  const blinkLink = page.locator("[href*='documents-request']");
+
+  const [newPage] = await Promise.all([
+    context.waitForEvent("page"),
+    blinkLink.click(),
+  ]);
+
+  const redText = await newPage.locator(".red a").textContent();
+  const username = redText!.split("@")[1].slice(0, 18);
+
+  await userName.fill(username);
+  console.log(await userName.inputValue());
+  await password.fill("Learning@830$3mK2");
+  await page.pause();
+  await radio.click();
+  await ok.click();
+  await expect(radio).toBeChecked();
+  await dropdown.selectOption("consult");
+  expect(await TandC.isChecked()).toBeFalsy();
+  await TandC.click();
+  await expect(TandC).toBeChecked();
+  await signInBtn.click();
 });
