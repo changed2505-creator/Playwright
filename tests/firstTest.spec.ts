@@ -64,7 +64,7 @@ test("Static dropdown select", async ({ page }) => {
   await signInBtn.click();
 });
 
-test.only("Navigating to child window", async ({ browser }) => {
+test("Navigating to child window", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
 
