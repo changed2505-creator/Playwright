@@ -19,7 +19,7 @@ test("Login to a site", async ({ page }) => {
 
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
-  //Login failuer
+  //Login failure
   await userName.fill("rahulshettyacademy");
   await password.fill("Learning@830$3mK245656567");
   await signInBtn.click();

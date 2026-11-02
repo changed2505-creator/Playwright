@@ -1,15 +1,17 @@
 import { test, expect } from "@playwright/test";
 
-test.only("Login to Ecommerse site", async ({ page }) => {
+test("Login to Ecommerse site", async ({ page }) => {
   const emailLogin = page.locator("#userEmail");
   const password = page.locator("#userPassword");
   const login = page.locator("#login");
-  const itemName = "ZARA COAT 3";
+  const itemName: string = "ZARA COAT 3";
 
   await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
 
   //Login
   await emailLogin.fill("Never555@gmail.com");
+  const email = await emailLogin.inputValue();
+  console.log(email);
   await password.fill("Never@555");
   await login.click();
 
@@ -57,10 +59,10 @@ test.only("Login to Ecommerse site", async ({ page }) => {
   await Name.fill("Rakesh Shetty");
 
   // Shipping Info
-  const email = page.locator(".text-validated.ng-valid");
+  const emailCheck = page.locator(".text-validated.ng-valid");
   const selectCountry = page.locator("[placeholder*=Country]");
   const list = page.locator(".ta-results");
-  await expect(email).toHaveValue("Never555@gmail.com");
+  await expect(emailCheck).toHaveValue(email);
   await selectCountry.pressSequentially("ind", { delay: 200 });
   await list.waitFor();
   const selectOption = await list.locator("button").all();
@@ -74,5 +76,37 @@ test.only("Login to Ecommerse site", async ({ page }) => {
   //Place Order
   const placeOrder = page.locator(".btnn");
   await placeOrder.click();
+
+  //Order placed confirmation
+  await page
+    .locator("td.line-item.product-info-column.m-3 div.title")
+    .waitFor();
+  await expect(
+    page.locator("td.line-item.product-info-column.m-3 div.title"),
+  ).toHaveText(itemName);
+  const oConfirm = page.locator(".hero-primary");
+  const orderID = page.locator("label.ng-star-inserted");
+  await expect(oConfirm).toHaveText(" Thankyou for the order. ");
+  const data = await orderID.textContent();
+  const orderNo = data!.slice(3, -3);
+  console.log(orderNo);
+
+  //view orders
+  const orders = page.locator("[routerlink*='/myorders'].btn");
+  await orders.click();
+
+  //view the last order
+  await page.locator("tbody").waitFor();
+  const allOrders = await page.locator("tbody tr").all();
+  for (const e of allOrders) {
+    if ((await e.locator("th").textContent()) === orderNo) {
+      await e.locator(".btn-primary").click();
+      break;
+    }
+  }
+
+  //Verify orderID
+  const verifyId = await page.locator(".col-text.-main").textContent();
+  expect(verifyId).toMatch(orderNo);
   await page.pause();
 });
