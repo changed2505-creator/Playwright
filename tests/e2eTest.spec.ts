@@ -108,5 +108,4 @@ test("Login to Ecommerse site", async ({ page }) => {
   //Verify orderID
   const verifyId = await page.locator(".col-text.-main").textContent();
   expect(verifyId).toMatch(orderNo);
-  await page.pause();
 });

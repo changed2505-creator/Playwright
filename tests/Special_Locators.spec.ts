@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.only("Special Locators in Playwright", async ({ page }) => {
+test("Special Locators in Playwright", async ({ page }) => {
   //Complete test timeout
   test.setTimeout(50000);
 
@@ -14,7 +14,6 @@ test.only("Special Locators in Playwright", async ({ page }) => {
 
   await page.getByPlaceholder("Password").fill("Likeit");
   await page.getByLabel("Check me out if you Love IceCreams!").check();
-  2;
 
   //action level
   await page.getByRole("button", { name: "submit" }).click({ timeout: 10000 });

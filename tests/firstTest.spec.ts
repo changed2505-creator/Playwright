@@ -91,7 +91,6 @@ test("Navigating to child window", async ({ browser }) => {
   await userName.fill(username);
   console.log(await userName.inputValue());
   await password.fill("Learning@830$3mK2");
-  await page.pause();
   await radio.click();
   await ok.click();
   await expect(radio).toBeChecked();
