@@ -50,11 +50,11 @@ test("E2E booking and verification", async ({ page }) => {
     .textContent();
   console.log(before);
   console.log(after);
-  const afterCount = Number(after?.match(/\d+/));
+  const afterCount = Number(after?.match(/\d+/)?.[0]);
   expect(beforeCount - afterCount).toBe(1);
 });
 
-test.only("E2E cancellation with refund", async ({ page }) => {
+test("E2E cancellation with refund", async ({ page }) => {
   await page.goto("https://eventhub.rahulshettyacademy.com");
 
   //   Login
