@@ -23,7 +23,7 @@ test("Popup and Hover functionality", async ({ page }) => {
   await page.getByRole("button", { name: "Mouse Hover" }).hover();
 });
 
-test.only("iframes functionality", async ({ page }) => {
+test("iframes functionality", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
 
   const framePage = page.frameLocator("#courses-iframe");

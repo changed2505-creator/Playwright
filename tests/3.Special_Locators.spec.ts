@@ -7,7 +7,7 @@ test("Special Locators in Playwright", async ({ page }) => {
   //Test level action timeout
   page.setDefaultTimeout(9000);
 
-  //Test level timeout
+  //Test level assertion timeout
   const slowExpect = expect.configure({ timeout: 6000 });
 
   await page.goto("https://rahulshettyacademy.com/angularpractice/");
