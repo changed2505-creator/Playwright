@@ -10,7 +10,7 @@ test("First test", async ({ browser, page }) => {
   await expect(page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
 });
 
-test("Login to a site", async ({ page }) => {
+test.only("Login to a site", async ({ page }) => {
   const errorBox = page.locator("[style*='block']");
   const userName = page.locator("#username");
   const password = page.locator("[type = 'password']");
@@ -19,21 +19,26 @@ test("Login to a site", async ({ page }) => {
 
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
-  //Login failure
-  await userName.fill("rahulshettyacademy");
-  await password.fill("Learning@830$3mK245656567");
-  await signInBtn.click();
-  console.log(await errorBox.textContent());
-  await expect(errorBox).toContainText("Incorrect");
+  page.on("request", (req) => console.log(req.url()));
+  page.on("response", (res) => console.log(res.url(), res.status()));
+  // //Login failure
+  // await userName.fill("rahulshettyacademy");
+  // await password.fill("Learning@830$3mK245656567");
+  // await signInBtn.click();
+  // console.log(await errorBox.textContent());
+  // await expect(errorBox).toContainText("Incorrect");
 
-  //Clear content
-  await userName.fill("");
-  await password.fill("");
+  // //Clear content
+  // await userName.fill("");
+  // await password.fill("");
 
   //login success
   await userName.fill("rahulshettyacademy");
   await password.fill("Learning@830$3mK2");
   await signInBtn.click();
+
+  // Network Abort
+  // await page.route("**/*.jpg", (route) => route.abort());
 
   //extract title after login
   console.log(await productName.nth(0).textContent());

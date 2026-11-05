@@ -14,6 +14,6 @@ export default defineConfig({
     actionTimeout: 10000,
     navigationTimeout: 20000,
     // screenshot: "on",
-    // trace: "on",
+    trace: "on",
   },
 });

@@ -18,7 +18,7 @@ test.beforeAll("One time Login", async ({ browser }) => {
   webContext = await browser.newContext({ storageState: "state.json" });
 });
 
-test.only("Login to Ecommerse site", async () => {
+test("Login to Ecommerse site", async () => {
   const page = await webContext.newPage();
   const itemName: string = "ZARA COAT 3";
 
