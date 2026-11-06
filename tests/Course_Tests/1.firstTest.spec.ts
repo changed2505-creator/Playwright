@@ -10,7 +10,7 @@ test("First test", async ({ browser, page }) => {
   await expect(page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
 });
 
-test.only("Login to a site", async ({ page }) => {
+test("Login to a site", async ({ page }) => {
   const errorBox = page.locator("[style*='block']");
   const userName = page.locator("#username");
   const password = page.locator("[type = 'password']");
