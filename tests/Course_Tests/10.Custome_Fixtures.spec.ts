@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { customTest } from "../Utils/Fixtures";
+import { customTest } from "../../Utils/helpers/Fixtures";
 
 customTest("Running a fixture", async ({ loginFixture, orderFixture }) => {
   await loginFixture.goto("https://rahulshettyacademy.com/client");

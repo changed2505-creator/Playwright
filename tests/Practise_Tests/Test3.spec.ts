@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
-import { customTest } from "./utilsTest/testFixtures";
+import { customTest } from "../../Utils/helpers/testFixtures";
 
-customTest.only("Test Fixtures", async ({ authenticatedPage, createEvent }) => {
+customTest("Test Fixtures", async ({ authenticatedPage, createEvent }) => {
   await authenticatedPage.goto(
     "https://eventhub.rahulshettyacademy.com/events",
   );

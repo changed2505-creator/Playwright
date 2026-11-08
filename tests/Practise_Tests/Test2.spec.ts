@@ -1,5 +1,5 @@
 import { Page, request, expect, test } from "@playwright/test";
-import { testAPIHandle } from "./utilsTest/testAPIHandle";
+import { testAPIHandle } from "../../Utils/helpers/testAPIHandle";
 
 const BASE_URL: string = "https://eventhub.rahulshettyacademy.com";
 const API_URL: string = `https://api.eventhub.rahulshettyacademy.com/api`;

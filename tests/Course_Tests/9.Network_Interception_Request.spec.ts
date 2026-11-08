@@ -1,5 +1,5 @@
 import { test, expect, request } from "@playwright/test";
-import { APIHandle } from "../Utils/APIHandle";
+import { APIHandle } from "../../Utils/helpers/APIHandle";
 
 let responseData: Record<string, any>;
 //Login Payload

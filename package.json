@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test tests/6.WebAPI.spec.ts --headed"
+    "test": "npx playwright test --config playwright.config1.ts",
+    "test:Firefox": "npx playwright test --config playwright.config1.ts --project=Firefox",
+    "test:Webkit": "npx playwright test --config playwright.config1.ts --project=Webkit"
   },
   "keywords": [],
   "type": "module",
