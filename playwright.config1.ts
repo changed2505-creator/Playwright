@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  retries: 1,
   timeout: 30000,
   expect: {
     timeout: 5000,
@@ -18,7 +19,9 @@ export default defineConfig({
         navigationTimeout: 20000,
         // screenshot: "on",
         trace: "on",
-        // viewport: { width: 720, height: 720 }, Responsive Sites
+        screenshot: "on",
+        video: "retain-on-failure",
+        // viewport: { width: 720, height: 720 }, // Responsive Sites
       },
     },
     {
@@ -26,11 +29,13 @@ export default defineConfig({
       use: {
         browserName: "webkit",
         // screenshot: "only-on-failure",
-        headless: true,
+        headless: false,
         actionTimeout: 10000,
         navigationTimeout: 20000,
         // screenshot: "on",
         // trace: "on",
+        video: "retain-on-failure",
+        ...devices["iPhone 17 Pro"], //Different devices
       },
     },
   ],

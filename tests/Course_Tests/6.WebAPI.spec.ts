@@ -43,6 +43,5 @@ test("E2E test for the site", async ({ page }) => {
 
   //Verify orderID
   const verifyId = await page.locator(".col-text.-main").textContent();
-  await page.pause();
   expect(verifyId).toMatch(responseData.orderID);
 });

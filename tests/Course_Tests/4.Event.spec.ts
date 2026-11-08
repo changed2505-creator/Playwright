@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 
-test("E2E booking and verification", async ({ page }) => {
+test("@Web E2E booking and verification", async ({ page }) => {
   await page.goto("https://eventhub.rahulshettyacademy.com/login");
   await page
     .getByRole("textbox", { name: "Email" })
@@ -21,35 +21,36 @@ test("E2E booking and verification", async ({ page }) => {
   await page.getByRole("textbox", { name: "Venue*" }).fill("Kormangla");
   await page
     .getByRole("textbox", { name: "Event Date & Time*" })
-    .fill("2026-11-05T10:12");
+    .fill("2026-11-10T10:12");
   await page.getByRole("spinbutton", { name: "Price ($)*" }).fill("5");
+  await page.getByRole("spinbutton", { name: "Total Seats*" }).fill("50");
   await page.getByTestId("add-event-btn").click();
-  await page.getByTestId("nav-home").click();
-  const before = await page
+  await page.getByTestId("nav-events").click();
+  const beforeText = page
     .getByTestId("event-card")
-    .filter({ hasText: "Dance" })
-    .getByText("seats")
-    .textContent();
+    .filter({ hasText: "Dance" });
+
+  await expect(beforeText).toBeVisible();
+
+  const before = await beforeText.getByText(/seats/).textContent();
   const beforeCount = Number(before?.match(/\d+/)?.[0]);
 
   await page
     .getByRole("article")
-    .filter({ hasText: "FestivalDanceThu, 5" })
+    .filter({ hasText: "Dance" })
     .getByTestId("book-now-btn")
     .click();
   await page.getByRole("textbox", { name: "Full Name*" }).fill("Tester");
   await page.getByTestId("customer-email").fill("Test12345@gmail.com");
   await page.getByRole("textbox", { name: "Phone Number*" }).fill("1234567899");
   await page.getByRole("button", { name: "Confirm Booking" }).click();
-  await page.getByTestId("nav-home").click();
+  await page.getByTestId("nav-events").click();
   await page.waitForLoadState("networkidle");
   const after = await page
     .getByTestId("event-card")
     .filter({ hasText: "Dance" })
     .getByText("seats")
     .textContent();
-  console.log(before);
-  console.log(after);
   const afterCount = Number(after?.match(/\d+/)?.[0]);
   expect(beforeCount - afterCount).toBe(1);
 });

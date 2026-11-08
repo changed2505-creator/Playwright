@@ -20,8 +20,10 @@ export class Dashboard_Page {
         break;
       }
     }
+    this.page.waitForLoadState("networkidle");
   }
   async goToCart() {
+    await this.cartBtn.waitFor();
     await this.cartBtn.click();
   }
 }

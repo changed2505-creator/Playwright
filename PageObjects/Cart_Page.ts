@@ -10,7 +10,6 @@ export class Cart_Page {
     this.checkOut = page.locator(".btn:has-text('Checkout')");
   }
   async verifyProduct() {
-    await this.page.locator(".cart li").waitFor();
     expect(this.cartItem.isVisible()).toBeTruthy();
   }
   async itemCheckOut() {

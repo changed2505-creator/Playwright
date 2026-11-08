@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
 
+test.describe.configure({ mode: "serial" });
+
 test("Hidden functionality", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
 
@@ -14,11 +16,12 @@ test("Hidden functionality", async ({ page }) => {
 });
 
 test("Popup and Hover functionality", async ({ page }) => {
-  await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+  await page.goto("https://rahulshettyacademy.com/AutomationPractice/", {
+    waitUntil: "domcontentloaded",
+  });
 
   page.on("dialog", (d) => d.accept());
   await page.getByRole("button", { name: "Alert" }).click();
-  await page.pause();
 
   await page.getByRole("button", { name: "Mouse Hover" }).hover();
 });

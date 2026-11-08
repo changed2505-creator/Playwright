@@ -10,7 +10,6 @@ test.beforeAll("One time Login", async ({ browser }) => {
   const login = page.locator("#login");
   await emailLogin.fill("Never555@gmail.com");
   const email = await emailLogin.inputValue();
-  console.log(email);
   await password.fill("Never@555");
   await login.click();
   await page.waitForLoadState("networkidle");
@@ -97,7 +96,6 @@ test("Login to Ecommerse site", async () => {
   await expect(oConfirm).toHaveText(" Thankyou for the order. ");
   const data = await orderID.textContent();
   const orderNo = data!.slice(3, -3);
-  console.log(orderNo);
 
   //view orders
   const orders = page.locator("[routerlink*='/myorders'].btn");

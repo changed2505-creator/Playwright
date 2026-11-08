@@ -5,8 +5,6 @@ test("First test", async ({ browser, page }) => {
   //   const page = await context.newPage();
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
-  console.log(await page.title());
-
   await expect(page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
 });
 
@@ -19,8 +17,9 @@ test("Login to a site", async ({ page }) => {
 
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
-  page.on("request", (req) => console.log(req.url()));
-  page.on("response", (res) => console.log(res.url(), res.status()));
+  // page.on("request", (req) => console.log(req.url()));
+  // page.on("response", (res) => console.log(res.url(), res.status()));
+
   // //Login failure
   // await userName.fill("rahulshettyacademy");
   // await password.fill("Learning@830$3mK245656567");
@@ -41,8 +40,8 @@ test("Login to a site", async ({ page }) => {
   // await page.route("**/*.jpg", (route) => route.abort());
 
   //extract title after login
-  console.log(await productName.nth(0).textContent());
-  console.log(await productName.allTextContents());
+  //   console.log(await productName.nth(0).textContent());
+  //   console.log(await productName.allTextContents());
 });
 
 test("Static dropdown select", async ({ page }) => {
@@ -94,13 +93,13 @@ test("Navigating to child window", async ({ browser }) => {
   const username = redText!.split("@")[1].slice(0, 18);
 
   await userName.fill(username);
-  console.log(await userName.inputValue());
   await password.fill("Learning@830$3mK2");
   await radio.click();
   await ok.click();
   await expect(radio).toBeChecked();
   await dropdown.selectOption("consult");
   expect(await TandC.isChecked()).toBeFalsy();
+  await TandC.waitFor();
   await TandC.click();
   await expect(TandC).toBeChecked();
   await signInBtn.click();

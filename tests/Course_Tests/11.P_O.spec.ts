@@ -4,7 +4,9 @@ import testData from "../../Utils/testData/P_OtestData.json" with { type: "json"
 import { customTest } from "../../Utils/helpers/testDataFixture";
 
 for (const data of testData) {
-  test(`Tesing for differenent data ${data.itemName}`, async ({ page }) => {
+  test(`@Web Tesing for differenent data ${data.itemName}`, async ({
+    page,
+  }) => {
     const pom = new POM(page);
 
     //Login
@@ -50,7 +52,7 @@ for (const data of testData) {
   });
 }
 
-customTest.only(
+customTest(
   "Testing custom data fixtures",
   async ({ page, testDataFixture }) => {
     const pom = new POM(page);
